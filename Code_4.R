@@ -76,7 +76,7 @@ scores <- vapply(tabs, function(tb) if (is_region_table(tb)) length(detect_year_
 if (max(scores) == 0L) stop("Could not find the mumps-by-region table on the GOV.UK page.")
 tab_region <- tabs[[which.max(scores)]]
 
-# ---- 2) Pivot to long format (fix mixed column types) ----
+# ---- 2) Pivot to long format ----
 tab_region <- tab_region |> dplyr::rename(region = 1)
 year_cols  <- detect_year_cols(tab_region)
 if (length(year_cols) == 0) stop("Found region table but no year columns were detected.")
@@ -132,7 +132,7 @@ stan_data <- list(
   ylag = Y_lag                                   # matches: matrix[T, N] ylag;
 )
 
-# ---- 4) Stan model (FIXED: use array[T, N] vector[...] not nested arrays) ----
+# ---- 4) Stan model  ----
 stan_code <- "
 data {
   int<lower=2> N;
@@ -151,7 +151,6 @@ parameters {
 
   real<lower=0> s_u;
 
-  // FIX: combined dims array[T, N], not array[T] array[N]
   array[T, N] vector[N-1] u_raw;
 }
 transformed parameters {

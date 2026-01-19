@@ -261,7 +261,7 @@ eval_rolling <- function(Y, W_list, fit, origins, horizons=c(1,2,4,8),
 }
 
 ## -----------------------------
-## 6) “Effect size is small” fix: directly bootstrap the DIFFERENCE (paired by origin)
+## 6) “Effect size is small” 
 ## -----------------------------
 eval_diff <- function(Y, W_list, fit_net, fit_nonet, origins, horizons=c(1,2,4,8),
                       model=c("gaussian","poisson"), S=1000, seed=1, block_len=6) {
@@ -355,7 +355,7 @@ perturb_W <- function(W, eps=0.1, seed=1) {
 stress_test_network <- function(Y, W_list, fit, origins, h=4, eps_grid=seq(0,0.5,by=0.05),
                                 model=c("poisson","gaussian"), S=500, seed=1) {
   model <- match.arg(model)
-  baseW <- W_list[[origins[1]]]  ## fixed adjacency case (Chicago)
+  baseW <- W_list[[origins[1]]]  
   out <- lapply(eps_grid, function(eps) {
     Wp <- perturb_W(baseW, eps=eps, seed=seed)
     ## operator-norm error

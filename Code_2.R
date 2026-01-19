@@ -114,7 +114,6 @@ for (t in 1:(Tt-1)) {
 X_list_nonet <- lapply(1:(Tt-1), function(t) cbind(1, Y_lag[t, ]))
 
 # ---------- Fit models ----------
-# (Hyperparameters fixed for illustration; consistent across TVP fits)
 sigma2 <- 0.02^2
 Q_full  <- replicate(Tt-1, diag(c(1e-4, 1e-4, 1e-4)), simplify = FALSE)
 Q_nonet <- replicate(Tt-1, diag(c(1e-4, 1e-4)), simplify = FALSE)
@@ -262,8 +261,8 @@ write.csv(summary_tbl, "figs/gdp_model_comparison.csv", row.names = FALSE)
 
 
 # =============================================================================
-# GDP MULTI-STEP EVALUATION (Gaussian) — 2nd snippet FIXED
-#   - Fixes GDP/crime mixing: W_t (148x33x33) must pair with Y_gdp (148x33)
+# GDP MULTI-STEP EVALUATION (Gaussian)
+#   - GDP/crime mixing: W_t (148x33x33) must pair with Y_gdp (148x33)
 #   - Builds W_full from W_t dims (not from Y_mat)
 #   - Auto-detects the GDP Y matrix in your workspace by matching dims to W_t
 #   - DM test + block bootstrap are made "small-sample safe" (no hard stop)
@@ -429,7 +428,7 @@ find_Y_matching_W <- function(Tw, Nw, env = .GlobalEnv) {
       "No GDP Y matrix found that matches W_t dims.\n",
       "W_t implies you need a matrix with dim ", Tw, " x ", Nw, " (or ", Nw, " x ", Tw, ").\n",
       "But your current Y_mat is likely the crime panel (72 x 552).\n\n",
-      "Fix: load/restore your GDP panel into an object like Y_gdp (", Tw, "x", Nw, "),\n",
+      "load/restore your GDP panel into an object like Y_gdp (", Tw, "x", Nw, "),\n",
       "then rerun. Available matrix/data.frame objects and dims:\n",
       paste(apply(mats, 1, function(r) paste0("  - ", r[1], ": ", r[2], " x ", r[3])), collapse="\n")
     )

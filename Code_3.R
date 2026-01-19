@@ -1,5 +1,5 @@
 # =============================================================================
-# EMPIRICAL II: Chicago burglary counts (Poisson NSSM) — FULL SCRIPT (FIXED)
+# EMPIRICAL II: Chicago burglary counts (Poisson NSSM) — FULL SCRIPT 
 # Data: nick3703/Chicago-Data
 #   - crime.csv is ALREADY MONTHLY counts (N=552 locations x T=72 months)
 #   - neighborhood.mtx is adjacency (552x552, MatrixMarket)
@@ -13,11 +13,6 @@
 # Reports:
 #   rolling-origin MAE, mean log score, and 90% PI coverage on last test_h months.
 #
-# KEY FIXES:
-#   - NEVER call Matrix::as()  (not exported). Use as() / methods::as().
-#   - readMM() may return dsTMatrix; convert safely to dgCMatrix via:
-#       as(A, "CsparseMatrix") -> as(., "generalMatrix") -> as(., "dgCMatrix")
-#   - Row-normalize correctly for dgCMatrix using Diagonal(inv_rs) %*% A.
 # =============================================================================
 
 # ---------- 0) Packages ----------
@@ -76,7 +71,7 @@ Yz <- zoo::zoo(Y, order.by = dates)
 cat(sprintf("Loaded burglary panel: N=%d regions, T=%d months (%s .. %s)\n",
             ncol(Yz), nrow(Yz), format(start(Yz)), format(end(Yz))))
 
-# ---------- 3) Load adjacency and build row-stochastic W (FIXED) ----------
+# ---------- 3) Load adjacency and build row-stochastic W  ----------
 A0 <- Matrix::readMM(W_path)
 
 # IMPORTANT:

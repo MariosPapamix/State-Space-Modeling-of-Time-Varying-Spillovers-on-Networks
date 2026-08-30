@@ -38,7 +38,7 @@ python3 make_figures.py && python3 make_tables.py
 Total: under an hour on a laptop. Monte Carlo entries reproduce within the
 seed-to-seed SDs stated in the paper (e.g. 0.07 for the h=1 log-score gain).
 
-## Cross-check against official R packages (optional)
+## Cross-check against official R packages
 
 The native hhh4 rows and the measles export were produced by `code/native_hhh4.R` (R with the `surveillance` package). The exported CSVs ship in `data/`, so the Python pipeline runs without R; rerun the R script only to regenerate them.
 ```r
